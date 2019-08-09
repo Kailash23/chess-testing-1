@@ -8,22 +8,22 @@ function makeRandomMove() {
   if (chess.game_over()) return;
   var randomIdx = Math.floor(Math.random() * possibleMoves.length);
   chess.move(possibleMoves[randomIdx]);
-  setTimeout(() => {},500)
   return chess.pgn();
 }
 
 socket.on('connect', function(){
   const move = makeRandomMove();
-  console.log("sended", move);
   if(move){
+    console.log("sended  :   ", move);
     socket.emit("messageToServer", move);
   }
 });
 
 socket.on('messageToClient', data => {
-  console.log("received",data);
+  console.log("received  :  ",data);
   const move = makeRandomMove();
   if(move){
+    console.log("sended  :   ", move);
     socket.emit("messageToServer", makeRandomMove());
   }
 })

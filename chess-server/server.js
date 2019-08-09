@@ -6,6 +6,7 @@ const expressServer = app.listen(8080);
 const io = socketio(expressServer);
 
 io.on("connection", socket => {
+  console.log('connected!')  
   socket.on("messageToServer", data => {
     console.log(data)
     socket.emit("messageToClient", data)
