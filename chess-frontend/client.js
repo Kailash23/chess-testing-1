@@ -11,19 +11,19 @@ function makeRandomMove() {
   return chess.pgn();
 }
 
-socket.on('connect', function(){
-  const move = makeRandomMove();
-  if(move){
-    console.log("sended  :   ", move);
-    socket.emit("messageToServer", move);
-  }
+socket.on("connect", function() {
+  setInterval(emit, 1000)
 });
 
-socket.on('messageToClient', data => {
-  console.log("received  :  ",data);
-  const move = makeRandomMove();
-  if(move){
-    console.log("sended  :   ", move);
-    socket.emit("messageToServer", makeRandomMove());
-  }
-})
+function emit(){
+  console.log('emit')
+  const data = makeRandomMove();
+  console.log("Sended: ", data)
+  if(data){
+    socket.emit("messageToServer", data);
+  } 
+}
+
+socket.on("messageToClient", data => {
+  console.log("Received: ", data);
+});
